@@ -3,6 +3,12 @@
 using namespace std;
 Huffman::Huffman() {}
 
+struct Compare {
+    bool operator()(Node* left, Node* right) {
+        return left->freq > right->freq;
+    }
+};
+
 void Huffman::buildFrequencyTable(string& inputFilePath) {
     ifstream inFile(inputFilePath, ios::binary);
     if (!inFile) {
@@ -15,12 +21,6 @@ void Huffman::buildFrequencyTable(string& inputFilePath) {
     }
     inFile.close();
 }
-
-struct Compare {
-    bool operator()(Node* left, Node* right) {
-        return left->freq > right->freq;
-    }
-};
 
 void Huffman::buildHuffmanTree() {
     priority_queue<Node*, vector<Node*>, Compare> minHeap;
