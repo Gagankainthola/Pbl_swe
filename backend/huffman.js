@@ -48,4 +48,19 @@ function encode_image(pixels, codeMap) {
 
 //encoding part
 
+function decode_image(encoded, root) {
+    let decoded = [];
+    let node = root;
+
+    for (let bit of encoded) {
+        node = bit === '0' ? node.left : node.right;
+        if (node.pixel !== null) {
+            decoded.push(node.pixel);
+            node = root;
+        }
+    }
+
+    return decoded;
+}
+
 module.exports = { build_huffman_tree, generate_huffman_codes, encode_image, decode_image };
